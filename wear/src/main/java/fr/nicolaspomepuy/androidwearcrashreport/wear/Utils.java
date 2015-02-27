@@ -16,19 +16,15 @@ public class Utils {
 
     public static byte[] serializeObject(Object o) {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-
         try {
             ObjectOutput out = new ObjectOutputStream(bos);
             out.writeObject(o);
             out.close();
 
             // Get the bytes of the serialized object
-            byte[] buf = bos.toByteArray();
-
-            return buf;
+            return bos.toByteArray();
         } catch(IOException ioe) {
             Log.e("serializeObject", "error", ioe);
-
             return null;
         }
     }
@@ -42,11 +38,9 @@ public class Utils {
             return object;
         } catch(ClassNotFoundException cnfe) {
             Log.e("deserializeObject", "class not found error", cnfe);
-
             return null;
         } catch(IOException ioe) {
             Log.e("deserializeObject", "io error", ioe);
-
             return null;
         }
     }

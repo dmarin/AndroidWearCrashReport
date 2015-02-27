@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-version '0.5'
+version '0.5.0-SNAPSHOT'
 artifact_id = 'crashreport-wear'
 
 android {
@@ -27,8 +27,8 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.google.android.gms:play-services-wearable:5.0.77'
-    compile 'com.google.android.support:wearable:+'
+    compile 'com.google.android.gms:play-services-wearable:6.5.87'
+    compile 'com.google.android.support:wearable:1.0.0'
 }
 
 //Releasing part
@@ -39,7 +39,7 @@ publishing {
         maven(MavenPublication) {
             artifact 'build/outputs/aar/wear-0.5.aar'
             artifactId 'crashreport-wear'
-            groupId 'fr.nicolaspomepuy.androidwearcrashreport'
+            groupId 'com.shazam.android'
         }
     }
 }
@@ -64,13 +64,13 @@ uploadArchives {
     repositories.mavenDeployer {
         beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-        repository(url: sonatypeRepo) {
-            authentication(userName: sonatypeUsername,
-                    password: sonatypePassword)
+        repository(url: nexusRepositoryUrlReleases) {
+            authentication(userName: nexusUsername,
+                    password: nexusPassword)
         }
-        snapshotRepository(url: sonatypeSnapshotRepo) {
-            authentication(userName: sonatypeUsername,
-                    password: sonatypePassword)
+        snapshotRepository(url: nexusRepositoryUrlSnapshots) {
+            authentication(userName: nexusUsername,
+                    password: nexusPassword)
         }
 
         pom.project {
@@ -79,7 +79,7 @@ uploadArchives {
             description "Allows you to retrieve exceptions of an Android Wear app in your handheld's one"
             url 'https://github.com/PomepuyN/AndroidWearCrashReport'
             artifactId 'crashreport-wear'
-            groupId 'fr.nicolaspomepuy.androidwearcrashreport'
+            groupId 'com.shazam.androidwearcrashreport'
 
             scm {
                 url 'scm:git@github.com:PomepuyN/AndroidWearCrashReport.git'
