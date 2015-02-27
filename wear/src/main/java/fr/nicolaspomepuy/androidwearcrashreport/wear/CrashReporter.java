@@ -121,8 +121,9 @@ public class CrashReporter {
         PackageInfo pinfo;
         int versionCode = 0;
         String versionName = "";
+        String packageName = context.getPackageName();
         try {
-            pinfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            pinfo = context.getPackageManager().getPackageInfo(packageName, 0);
             versionCode = pinfo.versionCode;
             versionName = pinfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
@@ -139,6 +140,8 @@ public class CrashReporter {
         dataMap.getDataMap().putString("product", Build.PRODUCT);
         dataMap.getDataMap().putString("versionName", versionName);
         dataMap.getDataMap().putInt("versionCode", versionCode);
+        dataMap.getDataMap().putString("osVersion", Build.VERSION.RELEASE);
+        dataMap.getDataMap().putString("packageName", packageName);
         PutDataRequest request = dataMap.asPutDataRequest();
         PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(getGoogleApiClient(context), request);
 

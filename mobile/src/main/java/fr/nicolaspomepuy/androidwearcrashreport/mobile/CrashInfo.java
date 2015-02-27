@@ -12,6 +12,8 @@ public class CrashInfo {
     private String product;
     private final int versionCode;
     private final String versionName;
+    private final String osVersion;
+    private final String packageName;
 
 
     private CrashInfo(Builder builder) {
@@ -22,6 +24,8 @@ public class CrashInfo {
         this.product = builder.product;
         this.versionCode = builder.versionCode;
         this.versionName = builder.versionName;
+        this.osVersion = builder.osVersion;
+        this.packageName = builder.packageName;
     }
 
     public static class Builder {
@@ -32,6 +36,8 @@ public class CrashInfo {
         private String product;
         private String versionName;
         private int versionCode;
+        private String osVersion;
+        private String packageName;
 
         public Builder(Throwable throwable) {
             this.throwable = throwable;
@@ -64,6 +70,16 @@ public class CrashInfo {
 
         public Builder versionName(String version) {
             this.versionName = version;
+            return this;
+        }
+
+        public Builder osVersion(String osVersion) {
+            this.osVersion = osVersion;
+            return this;
+        }
+
+        public Builder packageName(String packageName) {
+            this.packageName = packageName;
             return this;
         }
 
@@ -100,6 +116,14 @@ public class CrashInfo {
 
     public String getVersionName() {
         return versionName;
+    }
+
+    public String getOsVersion() {
+        return osVersion;
+    }
+
+    public String getPackageName() {
+        return packageName;
     }
 
     @Override
